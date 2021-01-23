@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, Union, Tuple
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -25,7 +25,7 @@ def run_algorithm_analysis(
     X_train: pd.DataFrame, 
     y_train: pd.DataFrame, 
     X_test: pd.DataFrame, 
-    y_test: pd.DataFrame) -> None:
+    y_test: pd.DataFrame) -> Tuple[BaseEstimator, pd.DataFrame]:
     
     display(Markdown(f"## {name}"))
     
@@ -70,13 +70,13 @@ def run_algorithm_analysis(
     
     return model, results
 
-def print_md(string: str, color: Optional[str]=None):
+def print_md(string: str, color: Optional[str]=None) -> None:
     """https://stackoverflow.com/a/46934204/6602729"""
     colorstr = "<span style='color:{}'>{}</span>".format(color, string)
     display(Markdown(colorstr))
 
 
-def return_class(score, low, high):
+def return_class(score: Union[int, float], low: Union[int, float], high: Union[int, float]) -> float:
     if score <= low:
         return 0.
     elif score >= high:
